@@ -30,7 +30,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/addNewProduct" element={<Createproduct />} />
           <Route path="/update/:id" element={<Updateproduct />} />
-          <Route path="/productDetailPage" element={<ProductDetail/>} />
+          <Route path="/productDetailPage/:id" element={<ProductDetail/>} />
           <Route path="/*" element={<Navigate to={'/'} />} />
           </Route>
           <Route path="/register" element={<Signup />} />

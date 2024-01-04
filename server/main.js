@@ -7,6 +7,7 @@ const userModel = require("./index");
 const mongoose = require("mongoose");
 const productModel = require("./products/index");
 const path = require("path");
+// const bcrypt = require('bcryptjs')
 
 app.use(express.static("public"));
 
@@ -15,18 +16,26 @@ app.use(cors());
 mongoose.connect("mongodb://localhost:27017/E-Commerce");
 
 app.get("/", (req, res) => {
-  userModel.find({}).then((resp) => res.json(resp));
+  userModel.find().then((resp) => res.json(resp));
 });
 
-app.post("/createUser", (req, res) => {
-  userModel
-    .create(req.body)
-    .then((result) => {
-      res.json(result);
+app.post("/createUser", async (req, res) => {
+  const { name, email, password } = req.body
+  // const bcryptPassword = await bcrypt.hash(password, 10) 
+
+  try {
+    const oldUser = await userModel.findOne({ email })
+    if (oldUser) {
+      return res.send({ error: "User Exist" })
+    }
+    await userModel.create({
+      name, email, password
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    res.send({ status: "ok" })
+  } catch (error) {
+    res.send({ status: 'error' })
+  }
+
 });
 
 const storage = multer.diskStorage({
@@ -71,15 +80,20 @@ app.put('/update/:id', upload.single("file"), (req, res) => {
 })
 app.delete('/deleteProduct/:_id', (req, res) => {
   const id = req.params._id
-  productModel.findByIdAndDelete({ _id: id }).then(resp => res.json(resp))
+  productModel.findByIdAndDelete(
+    { _id: id },
+    { $set: { deletedAt: new Date() } },
+    { new: true }).then(resp => res.json(resp))
+
+
 })
 
-app.get('/search/:key',async(req,res)=>{
-   const key=req.params.key  
-  const prods= await productModel.find({})
+app.get('/search/:key', async (req, res) => {
+  const key = req.params.key
+  const prods = await productModel.find({})
   // const result=await prods.json()
-  const searc=await prods.filter(products=>products.title.toLowerCase().includes(key.toLowerCase()))
-   res.send(searc)
+  const searc = await prods.filter(products => products.title.toLowerCase().includes(key.toLowerCase()))
+  res.send(searc)
 
 })
 

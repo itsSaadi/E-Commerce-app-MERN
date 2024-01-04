@@ -20,7 +20,7 @@ function Products() {
 
   const fetchData = async() => {
     const response=await axios.get('http://localhost:5001/getProducts')
-      //  dispatch(fetchProducts(response.data))
+       dispatch(fetchProducts(response.data))
       setProducts(response.data)
        
   }
@@ -36,8 +36,8 @@ function Products() {
 
   }
 
-  const handleProductDetail=()=>{
-    navigate('/productDetailPage')
+  const handleProductDetail=(id)=>{
+    navigate(`/productDetailPage/${id}`)
   }
 
   const handleSearch=(e)=>{
@@ -45,16 +45,13 @@ function Products() {
    if(key){
     axios.get('http://localhost:5001/search/'+key).then((response)=>{
       if(response){
+        console.warn(response.data)
         setProducts(response.data)
       }
      }) 
    }else{
     fetchData()
-
    }
-   
-    
-
   }
 
   return (
@@ -71,7 +68,7 @@ function Products() {
               return (
                 <div class="col-md-3" key={index}>
                   <div className="card my-2" style={{width:'200px'}}>
-                    <img onClick={(e)=>{handleProductDetail()}} src={'http://localhost:5001/images/' + items.image} class="card-img-top"  />
+                    <img onClick={(e)=>{handleProductDetail(items._id)}} src={'http://localhost:5001/images/' + items.image} class="card-img-top"  />
                     <div class="card-body">
                       <h5 class="card-title">{items.title}</h5>
                       <p class="card-text">${items.price}</p>

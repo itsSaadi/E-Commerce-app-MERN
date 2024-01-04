@@ -5,6 +5,7 @@ import axios from "axios";
 import { addUser } from "../store/usersSlice";
 
 export default function Signup() {
+  const [error, setError] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -12,20 +13,28 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const postUser = async (e) => {
+  const postUser = (e) => {
     e.preventDefault();
-    const response = await axios.post("http://localhost:5001/createUser", {
+    axios.post("http://localhost:5001/createUser", {
       name,
       email,
       password,
-    });
-    dispatch(addUser(response.data));
-    navigate("/login");
+    }).then((response) => {
+      if (response.data.error) {
+        setError(true)
+      } else {
+        dispatch(addUser(response.data))
+        navigate('/login')
+      }
+    })
+
+    // dispatch(addUser(response.data));
+    // navigate("/login");
   };
 
   return (
     <>
-      <div className="d-flex vh-100  justify-content-center align-items-center contain">
+      <div className="d-flex vh-100  justify-content-center align-items-center contain">s
         <div className="container">
           <div className="wrapper">
             <form action="" onSubmit={postUser}>
@@ -47,6 +56,7 @@ export default function Signup() {
                   required
                 />
                 <i className="fa-solid fa-envelope"></i>
+                {error ? <span style={{ color: 'aqua', fontWeight: 'bold' }}>User Already Exists</span> : ''}
               </div>
               <div className="input-box">
                 <input
