@@ -8,7 +8,8 @@ import { useDispatch,useSelector } from "react-redux";
 
 
 function Products() {
-  const products=useSelector(state=>state.products.products)
+  const [products,setProducts]=useState([])
+  // const products=useSelector(state=>state.products.products)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -19,7 +20,9 @@ function Products() {
 
   const fetchData = async() => {
     const response=await axios.get('http://localhost:5001/getProducts')
-       dispatch(fetchProducts(response.data))
+      //  dispatch(fetchProducts(response.data))
+      setProducts(response.data)
+       
   }
 
   const addProduct = () => {
@@ -37,14 +40,34 @@ function Products() {
     navigate('/productDetailPage')
   }
 
+  const handleSearch=(e)=>{
+   const key=e.target.value
+   if(key){
+    axios.get('http://localhost:5001/search/'+key).then((response)=>{
+      if(response){
+        setProducts(response.data)
+      }
+     }) 
+   }else{
+    fetchData()
+
+   }
+   
+    
+
+  }
+
   return (
     <div className="container my-5">
       <h1 style={{ fontFamily: 'monospace' }}>Products</h1>
+      <form class="d-flex" role="search">
+        <input onChange={(e)=>{handleSearch(e)}} class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+      </form>
       <div class="container mt-4">
         <button onClick={() => addProduct()} className="btn btn-success">Add Product</button>
-        <div class="row" >
+        <div className="row my-3" >
           {
-            products.map((items, index) => {
+         products.length?products.map((items, index) => {
               return (
                 <div class="col-md-3" key={index}>
                   <div className="card my-2" style={{width:'200px'}}>
@@ -61,7 +84,7 @@ function Products() {
                 </div>
               )
             })
-          }
+         :<h1 className="my-5 mx-5" style={{ fontFamily: 'monospace' }}>No Products</h1> }
         </div>
       </div>
     </div>

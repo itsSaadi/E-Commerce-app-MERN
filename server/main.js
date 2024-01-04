@@ -74,6 +74,15 @@ app.delete('/deleteProduct/:_id', (req, res) => {
   productModel.findByIdAndDelete({ _id: id }).then(resp => res.json(resp))
 })
 
+app.get('/search/:key',async(req,res)=>{
+   const key=req.params.key  
+  const prods= await productModel.find({})
+  // const result=await prods.json()
+  const searc=await prods.filter(products=>products.title.toLowerCase().includes(key.toLowerCase()))
+   res.send(searc)
+
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

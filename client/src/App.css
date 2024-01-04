@@ -140,4 +140,6 @@
  }
  .card-img-top{
   cursor: pointer ;
+  width: 200px;
+  height: 160px;
  }
