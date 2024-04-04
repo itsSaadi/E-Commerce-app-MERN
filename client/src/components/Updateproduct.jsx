@@ -80,7 +80,7 @@ export default function Updateproduct() {
             className="form-control"
             id="exampleInputPassword1"
             onChange={(e) => setFile(e.target.files[0])}
-            required
+            
           />
         </div>
         <button type="submit" className="btn btn-primary">
