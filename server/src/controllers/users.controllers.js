@@ -12,8 +12,17 @@ export const getUsers = async (req, res) => {
 }
 
 export const createUsers = async (req, res) => {
+
     try {
         const { username, email, password } = req.body;
+        const existingEmail = await UsersModel.findOne({ email });
+        if (existingEmail) {
+            return res.status(400).json({ message: 'Email already exists' });
+        }
+        const existingUsername = await UsersModel.findOne({ username });
+        if (existingUsername) {
+            return res.status(400).json({ message: 'Username already exists' });
+        }
         const newUser = await UsersModel.create({ username, email, password })
         res.send(newUser)
     } catch (error) {

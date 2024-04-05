@@ -11,27 +11,29 @@ import ProductDetail from "./components/productDetail";
 import { useEffect, useState } from "react";
 import Home from "./components/Home";
 
+
 function App() {
-  const [name,setName]=useState('')
-  useEffect(()=>{
+
+  const [name, setName] = useState('')
+  useEffect(() => {
     getLocal()
-  },[])
- const getLocal=()=>{
-  const auth=localStorage.getItem('user')
-   setName(auth)
+  }, [])
+  const getLocal = () => {
+    const auth = localStorage.getItem('user')
+    setName(auth)
   }
   return (
     <>
       <BrowserRouter>
-        {name?<Navbar/>:''}
+        {name ? <Navbar /> : ''}
         <Routes>
-          <Route element={<Protected/>}>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/addNewProduct" element={<Createproduct />} />
-          <Route path="/update/:id" element={<Updateproduct />} />
-          <Route path="/productDetailPage/:id" element={<ProductDetail/>} />
-          <Route path="/*" element={<Navigate to={'/'} />} />
+          <Route element={<Protected />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/addNewProduct" element={<Createproduct />} />
+            <Route path="/update/:id" element={<Updateproduct />} />
+            <Route path="/productDetailPage/:id" element={<ProductDetail />} />
+            <Route path="/*" element={<Navigate to={'/'} />} />
           </Route>
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />

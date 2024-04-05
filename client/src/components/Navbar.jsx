@@ -8,7 +8,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    setName(user.name)
+    setName(user.username)
   }, []);
 
   const logout = () => {

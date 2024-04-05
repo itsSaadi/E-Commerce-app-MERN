@@ -1,8 +1,10 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { getUsers } from "../api/users";
+import Loader from "./loader";
 export default function Login() {
+  const [loader, setLoader] = useState(false)
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,15 +12,20 @@ export default function Login() {
 
 
   const handleLogin = async (e) => {
+    setLoader(true)
     e.preventDefault();
-    const response = await axios.get('http://localhost:5001/')
-    const users = response.data;
+    const response = await getUsers()
+    console.log(response)
+    const users = await response.data;
     const user = users.find(x => x.email === email && x.password === password)
     if (user) {
       localStorage.setItem('user', JSON.stringify(user))
+      alert('user found')
+      setLoader(false)
       window.location.href = '/'
     } else {
       alert('User Not Found')
+      setLoader(false)
     }
   }
 
@@ -50,7 +57,7 @@ export default function Login() {
               </div>
 
               <button type="submit" className="createbtn">
-                Login
+                {loader ? <div className="load"><Loader /></div> : 'login'}
               </button>
               <Link style={{ color: 'aqua' }} to="/register" >Don't have accout?Register</Link>
             </form>

@@ -1,35 +1,29 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
 import { addUser } from "../store/usersSlice";
+import { createUsers } from "../api/users";
+import Loader from "./loader";
 
 export default function Signup() {
+  const [loader, setLoader] = useState(false)
   const [error, setError] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const postUser = (e) => {
+  const postUser = async (e) => {
+    setLoader(true)
     e.preventDefault();
-    axios.post("http://localhost:5001/createUser", {
-      name,
-      email,
-      password,
-    }).then((response) => {
-      if (response.data.error) {
-        setError(true)
-      } else {
-        dispatch(addUser(response.data))
-        navigate('/login')
-      }
-    })
+    const postUser = await createUsers({ username, email, password });
+    console.log('succesfullly posted', postUser)
+    dispatch(addUser(postUser.data))
+    setLoader(false)
+    navigate('/login')
 
-    // dispatch(addUser(response.data));
-    // navigate("/login");
   };
 
   return (
@@ -41,7 +35,7 @@ export default function Signup() {
               <h1 className="heading">Register Yourself</h1>
               <div className="input-box">
                 <input
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   type="text"
                   placeholder="Username"
                   required
@@ -69,7 +63,7 @@ export default function Signup() {
               </div>
 
               <button type="submit" className="createbtn">
-                Submit
+                {loader ? <div className="load"><Loader /></div> : 'Submit'}
               </button>
               <Link style={{ color: "aqua" }} to="/login">
                 Already have accout?login
