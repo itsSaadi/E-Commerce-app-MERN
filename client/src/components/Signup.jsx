@@ -16,13 +16,17 @@ export default function Signup() {
   const [password, setPassword] = useState("");
 
   const postUser = async (e) => {
-    setLoader(true)
-    e.preventDefault();
-    const postUser = await createUsers({ username, email, password });
-    console.log('succesfullly posted', postUser)
-    dispatch(addUser(postUser.data))
-    setLoader(false)
-    navigate('/login')
+    if (username && email && password) {
+      setLoader(true)
+      e.preventDefault();
+      const postUser = await createUsers({ username, email, password });
+      console.log('succesfullly posted', postUser)
+      dispatch(addUser(postUser.data))
+      setLoader(false)
+      navigate('/login')
+    } else {
+      alert('Please fill out form')
+    }
 
   };
 
@@ -38,7 +42,7 @@ export default function Signup() {
                   onChange={(e) => setUsername(e.target.value)}
                   type="text"
                   placeholder="Username"
-                  required
+
                 />
                 <i className="fa-solid fa-circle-user"></i>
               </div>
@@ -47,19 +51,19 @@ export default function Signup() {
                   onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   placeholder="Email"
-                  required
                 />
                 <i className="fa-solid fa-envelope"></i>
-                {error ? <span style={{ color: 'aqua', fontWeight: 'bold' }}>User Already Exists</span> : ''}
+                {email && !email.includes('@gmail.com') ? <span className='spans'>email must be like,abc@gmail.com</span> : ''}
               </div>
               <div className="input-box">
                 <input
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   placeholder="Password"
-                  required
+
                 />
                 <i className="fa-solid fa-lock"></i>
+                {password && password.length < 8 ? <span className='spans'>Password must contain at least 8 letters !</span> : ''}
               </div>
 
               <button type="submit" className="createbtn">

@@ -1,7 +1,6 @@
 .contain {
-  background: url("https://github.com/danaleko/Login-Form-By-Dan-Aleko/blob/main/bg.jpg?raw=true") no-repeat;
-  background-size: cover;
-  background-position: center;
+
+  background-color: black;
 }
 
 .wrapper {
@@ -78,21 +77,18 @@
 .createbtn {
   width: 100%;
   height: 45px;
-  background: #fff;
+  background-color: #198754;
   border: none;
   outline: none;
   border-radius: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 5px 5px green;
   cursor: pointer;
   font-size: 16px;
-  color: #333;
+  color: #fffbfb;
   font-weight: 600;
 }
 
-.createbtn:hover {
-  background-color: rgb(21, 115, 71);
-  color: white;
-}
+
 
 .wrapper .register-link {
   font-size: 14.5px;
@@ -175,8 +171,12 @@
   }
 }
 
-.load{
+.load {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.spans{
+  color: red;
+  font-weight: bold;
 }
