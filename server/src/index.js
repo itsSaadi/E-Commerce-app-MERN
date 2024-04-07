@@ -2,12 +2,14 @@ import dotenv from 'dotenv'
 import { connectDB } from './database/config.js'
 import { app } from './app/app.js'
 import { userRotues } from './routes/users.routes.js'
+import { productRoutes } from './routes/products.routes.js'
 
 dotenv.config()
-const port = process.env.PORT || 4000   
+const port = process.env.PORT || 4000
 
 //Routes
 app.use('', userRotues)
+app.use('', productRoutes)
 //Routes
 
 
