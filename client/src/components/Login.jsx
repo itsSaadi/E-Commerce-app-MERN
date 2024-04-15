@@ -27,6 +27,7 @@ export default function Login() {
         window.location.href = '/'
       } else {
         alert('User Not Found')
+        document.getElementById('form').reset()
         setLoader(false)
       }
     } else {
@@ -39,7 +40,7 @@ export default function Login() {
       <div className="d-flex vh-100  justify-content-center align-items-center contain">
         <div className="container">
           <div className="wrapper">
-            <form action="" onSubmit={handleLogin}>
+            <form action="" onSubmit={handleLogin} id="form">
               <h1 className="heading">Please Login!</h1>
 
               <div className="input-box">
@@ -49,7 +50,7 @@ export default function Login() {
                   placeholder="Email"
                 />
                 <i className="fa-solid fa-envelope"></i>
-                {email && !email.includes('@gmail.com')  ? <span className='spans'>email must be like,abc@gmail.com</span> : ''}
+                {email && !email.includes('@gmail.com') ? <span className='spans'>email must be like,abc@gmail.com</span> : ''}
               </div>
               <div className="input-box">
                 <input
@@ -63,10 +64,12 @@ export default function Login() {
 
               </div>
 
-              <button type="submit" className="createbtn">
+              <button disabled={!email && !email.length && !password && !password.length ? true : false} type="submit" className="createbtn">
                 {loader ? <div className="load"><Loader /></div> : 'login'}
               </button>
-              <Link style={{ color: 'aqua' }} to="/register" >Don't have accout?Register</Link>
+              <p style={{ marginTop: '10px' }}>
+                <Link style={{ color: 'aqua' }} to="/register" >Don't have accout?Register</Link>
+              </p>
             </form>
           </div>
         </div>

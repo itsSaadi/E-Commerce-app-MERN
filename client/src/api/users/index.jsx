@@ -3,7 +3,7 @@ import { BASE_API_URL } from "../../config"
 
 
 export const getUsers = () => {
-    return axios.get(`${BASE_API_URL}`)
+    return axios.get(`${BASE_API_URL}/users`)
 }
 
 export const createUsers = async (

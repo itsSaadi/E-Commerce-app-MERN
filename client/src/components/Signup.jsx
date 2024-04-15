@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../store/usersSlice";
@@ -35,7 +35,7 @@ export default function Signup() {
       <div className="d-flex vh-100  justify-content-center align-items-center contain">s
         <div className="container">
           <div className="wrapper">
-            <form action="" onSubmit={postUser}>
+            <form action="" onSubmit={postUser} id="form">
               <h1 className="heading">Register Yourself</h1>
               <div className="input-box">
                 <input
@@ -66,12 +66,15 @@ export default function Signup() {
                 {password && password.length < 8 ? <span className='spans'>Password must contain at least 8 letters !</span> : ''}
               </div>
 
-              <button type="submit" className="createbtn">
+              <button disabled={!username & !username.length & !email & !email.length & !password & !password.length ? true : false} type="submit" className="createbtn">
                 {loader ? <div className="load"><Loader /></div> : 'Submit'}
               </button>
-              <Link style={{ color: "aqua" }} to="/login">
-                Already have accout?login
-              </Link>
+              <p style={{ marginTop: '10px' }}>
+                <Link style={{ color: "aqua" }} to="/login">
+                  Already have accout?login
+                </Link>
+              </p>
+
             </form>
           </div>
         </div>
