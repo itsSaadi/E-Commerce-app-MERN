@@ -6,8 +6,8 @@ import { createUsers, deleteUser, getUsers } from '../controllers/users.controll
 export const userRotues = express.Router()
 
 userRotues.get('/api/v1/users', getUsers)
-userRotues.post('api/v1/createuser', createUsers)
-userRotues.delete('ap1/v1/deleteuser/:id', deleteUser)
+userRotues.post('/api/v1/createuser', createUsers)
+userRotues.delete('/ap1/v1/deleteuser/:id', deleteUser)
 
 
 

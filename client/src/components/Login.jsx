@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom'
-import { useNavigate } from 'react-router-dom'
 import { getUsers } from "../api/users";
 import Loader from "./loader";
 export default function Login() {
-  const [emailError, setemailError] = useState(false)
   const [loader, setLoader] = useState(false)
-  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [err, setErr] = useState(false)
+
 
 
 
@@ -26,8 +25,7 @@ export default function Login() {
         setLoader(false)
         window.location.href = '/'
       } else {
-        alert('User Not Found')
-        document.getElementById('form').reset()
+        setErr(true)
         setLoader(false)
       }
     } else {
@@ -42,7 +40,7 @@ export default function Login() {
           <div className="wrapper">
             <form action="" onSubmit={handleLogin} id="form">
               <h1 className="heading">Please Login!</h1>
-
+              {err && err ? <span className="spans">Invalid Email or Password</span> : ''}
               <div className="input-box">
                 <input
                   onChange={(e) => setEmail(e.target.value)}

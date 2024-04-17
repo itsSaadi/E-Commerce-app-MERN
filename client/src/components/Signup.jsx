@@ -1,13 +1,14 @@
 import React, { useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../store/usersSlice";
 import { createUsers } from "../api/users";
 import Loader from "./loader";
 
 export default function Signup() {
   const [loader, setLoader] = useState(false)
-  const [error, setError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+  const [usernameError, setUsernameError] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,32 +20,46 @@ export default function Signup() {
     if (username && email && password) {
       setLoader(true)
       e.preventDefault();
-      const postUser = await createUsers({ username, email, password });
-      console.log('succesfullly posted', postUser)
-      dispatch(addUser(postUser.data))
-      setLoader(false)
-      navigate('/login')
+      try {
+        const postUser = await createUsers({ username, email, password });
+        console.log('succesfullly posted', postUser)
+        dispatch(addUser(postUser.data))
+        setLoader(false)
+        navigate('/login')
+      } catch (error) {
+        if (error.response.data.message === 'Email already exists') {
+          setLoader(false)
+          setEmailError(true)
+        }
+        else if (error.response.data.message === 'Username already exists') {
+          setLoader(false)
+          setUsernameError(true)
+        }
+      }
+
     } else {
       alert('Please fill out form')
     }
-
   };
 
   return (
     <>
-      <div className="d-flex vh-100  justify-content-center align-items-center contain">s
+      <div className="d-flex vh-100  justify-content-center align-items-center contain">
         <div className="container">
           <div className="wrapper">
             <form action="" onSubmit={postUser} id="form">
               <h1 className="heading">Register Yourself</h1>
               <div className="input-box">
                 <input
+                  id="username"
                   onChange={(e) => setUsername(e.target.value)}
                   type="text"
                   placeholder="Username"
 
                 />
                 <i className="fa-solid fa-circle-user"></i>
+                {usernameError && usernameError ? <span className="spans">Username is already taken</span> : ''}
+
               </div>
               <div className="input-box">
                 <input
@@ -54,6 +69,7 @@ export default function Signup() {
                 />
                 <i className="fa-solid fa-envelope"></i>
                 {email && !email.includes('@gmail.com') ? <span className='spans'>email must be like,abc@gmail.com</span> : ''}
+                {emailError && emailError ? <span className="spans">Email Already Exists</span> : ''}
               </div>
               <div className="input-box">
                 <input
