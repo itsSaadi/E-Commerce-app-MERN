@@ -10,6 +10,7 @@ import Protected from "./components/utils/Protected";
 import ProductDetail from "./components/pages/products/ProductDetail";
 import { useEffect, useState } from "react";
 import Home from "./components/pages/dashboard/Home";
+import Forgetpassword from "./components/pages/auth/Forgetpassword.jsx";
 
 
 function App() {
@@ -35,8 +36,12 @@ function App() {
             <Route path="/productDetailPage/:id" element={<ProductDetail />} />
             <Route path="/*" element={<Navigate to={'/'} />} />
           </Route>
+          //Auth
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget-password" element={<Forgetpassword />} />
+          //Auth
+
         </Routes>
       </BrowserRouter>
     </>
