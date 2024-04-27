@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import {fetchProducts,deleteProduct}  from "../store/productSlice";
+import {fetchProducts,deleteProduct}  from "../../../store/productSlice";
 import { useDispatch,useSelector } from "react-redux";
 
 

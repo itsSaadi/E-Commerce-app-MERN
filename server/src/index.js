@@ -3,13 +3,15 @@ import { connectDB } from './database/config.js'
 import { app } from './app/app.js'
 import { userRotues } from './routes/users.routes.js'
 import { productRoutes } from './routes/products.routes.js'
+import { authRoutes } from './routes/auth.routes.js'
 
 dotenv.config()
 const port = process.env.PORT || 4000
 
 //Routes
-app.use('', userRotues)
-app.use('', productRoutes)
+app.use('/api/v1', userRotues)
+app.use('/api/v1', productRoutes)
+app.use('/api/v1/auth', authRoutes)
 //Routes
 
 

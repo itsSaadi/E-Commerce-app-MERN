@@ -1,9 +1,9 @@
 import React, { useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../store/usersSlice";
-import { createUsers } from "../api/users";
-import Loader from "./loader";
+import addUser from '../../../store/usersSlice.jsx'
+import { createUsers } from "../../../api/users/index.js";
+import Loader from "../../utils/Loader.jsx";
 
 export default function Signup() {
   const [loader, setLoader] = useState(false)

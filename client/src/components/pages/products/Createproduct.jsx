@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios'
-import {addProduct}  from "../store/productSlice";
+import {addProduct}  from "../../../store/productSlice";
 import {useDispatch } from "react-redux";
 import {useNavigate} from 'react-router-dom'
 

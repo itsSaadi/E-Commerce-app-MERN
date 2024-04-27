@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom'
-import { getUsers } from "../api/users";
-import Loader from "./loader";
+import { getUsers } from "../../../api/users/index.js";
+import Loader from "../../utils/Loader.jsx";
 export default function Login() {
   const [loader, setLoader] = useState(false)
   const [email, setEmail] = useState("");
@@ -65,9 +65,14 @@ export default function Login() {
               <button disabled={!email && !email.length && !password && !password.length ? true : false} type="submit" className="createbtn">
                 {loader ? <div className="load"><Loader /></div> : 'login'}
               </button>
-              <p style={{ marginTop: '10px' }}>
+              <div style={{display:'flex',justifyContent:'space-between'}}>
+              <div style={{ marginTop: '10px' }}>
                 <Link style={{ color: 'aqua' }} to="/register" >Don't have accout?Register</Link>
-              </p>
+              </div>
+              <div style={{ marginTop: '10px' }}>
+                <Link style={{ color: 'aqua' }} to="/forget-password" >Forgot Passoword?</Link>
+              </div>
+              </div>
             </form>
           </div>
         </div>

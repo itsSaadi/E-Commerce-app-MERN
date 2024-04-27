@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Login from "./Login";
 
 export default function Navbar() {
   const [name,setName]=useState('')

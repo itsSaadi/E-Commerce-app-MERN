@@ -1,15 +1,15 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Products from "./components/Products";
-import Navbar from "./components/Navbar";
-import Createproduct from "./components/Createproduct";
-import Updateproduct from "./components/Updateproduct";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
-import Protected from "./components/Protected";
-import ProductDetail from "./components/productDetail";
+import Products from "./components/pages/products/Products.jsx";
+import Navbar from "./components/pages/dashboard/Navbar";
+import Createproduct from "./components/pages/products/Createproduct";
+import Updateproduct from "./components/pages/products/Updateproduct";
+import Signup from "./components/pages/auth/Signup";
+import Login from "./components/pages/auth/Login";
+import Protected from "./components/utils/Protected";
+import ProductDetail from "./components/pages/products/ProductDetail";
 import { useEffect, useState } from "react";
-import Home from "./components/Home";
+import Home from "./components/pages/dashboard/Home";
 
 
 function App() {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { updateProduct } from '../store/productSlice'
+import { updateProduct } from '../../../store/productSlice'
 import {useDispatch} from 'react-redux'
 
 export default function Updateproduct() {
