@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Loader from '../../utils/Loader'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { resetPassword } from '../../../api/auth'
 
 function ResetPassword() {
     const [password, setPassword] = useState('')
@@ -9,13 +10,15 @@ function ResetPassword() {
     const [messageModal, setMessageModal] = useState(false)
     const [error, setError] = useState(false)
 
-    const handleSubmit = (e) => {
+    const { id } = useParams()
+    const handleSubmit = async (e) => {
         e.preventDefault()
         setLoader(true)
         if (password !== confirmPassword) {
             setError(true)
             setLoader(false)
         } else {
+            await resetPassword({ id, password })
             setMessageModal(true)
         }
     }

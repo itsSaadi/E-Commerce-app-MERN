@@ -18,10 +18,10 @@ export const forgetPassword = async (req, res) => {
         });
 
         var mailOptions = {
-            from: 'saadcode796@gmail.com',
+            from: 'Vite E-Commerce',
             to: email,
             subject: 'Password reset link',
-            text: `http://localhost:5173/reset-password`
+            text: `http://localhost:5173/reset-password/${user._id}`
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
@@ -38,3 +38,19 @@ export const forgetPassword = async (req, res) => {
 
 }
 
+
+
+export const resetPassword = async (req, res) => {
+
+    const { id } = req.params
+    const { password } = req.body
+    try {
+        const updatedUser = await UsersModel.findByIdAndUpdate({ _id: id }, { password: password })
+        res.send(updatedUser)
+
+    } catch (error) {
+        console.log(`Error`, error)
+
+    }
+
+}

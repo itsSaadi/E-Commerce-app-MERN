@@ -1,8 +1,9 @@
 import express from 'express'
-import { forgetPassword } from '../controllers/auth.controllers.js'
+import { forgetPassword, resetPassword } from '../controllers/auth.controllers.js'
 
-export const authRoutes=express.Router()
+export const authRoutes = express.Router()
 
 
-authRoutes.post('/forget',forgetPassword)
+authRoutes.post('/forget', forgetPassword)
+authRoutes.post('/reset/:id', resetPassword)
 

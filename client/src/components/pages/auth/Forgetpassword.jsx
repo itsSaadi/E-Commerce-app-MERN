@@ -17,7 +17,6 @@ function Forgetpassword() {
       setError(true)
       setLoader(false)
     }
-    console.log(user)
     setMessageModal(true)
   }
 
