@@ -63,7 +63,7 @@ export default function Login() {
               </div>
 
               <button disabled={!email && !email.length && !password && !password.length ? true : false} type="submit" className="createbtn">
-                {loader ? <div className="load"><Loader /></div> : 'login'}
+                {loader ? <div className="load"><Loader /></div> : 'Login'}
               </button>
               <div style={{display:'flex',justifyContent:'space-between'}}>
               <div style={{ marginTop: '10px' }}>

@@ -31,7 +31,7 @@ function Forgetpassword() {
                     {email && !email.includes('@gmail.com') ? <span className='spans'>email must be like,abc@gmail.com</span> : ''}
                   </div>
                   <button disabled={!email && !email.length ? true : false} type="submit" className="createbtn">
-                    {loader ? <div className="load"><Loader /></div> : 'login'}
+                    {loader ? <div className="load"><Loader /></div> : 'Reset'}
                   </button>
                   <p style={{ marginTop: '10px' }}>
                     <Link style={{ color: "aqua" }} to="/login">

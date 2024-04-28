@@ -11,6 +11,7 @@ import ProductDetail from "./components/pages/products/ProductDetail";
 import { useEffect, useState } from "react";
 import Home from "./components/pages/dashboard/Home";
 import Forgetpassword from "./components/pages/auth/Forgetpassword.jsx";
+import ResetPassword from "./components/pages/auth/Resetpassword.jsx";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/register" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<Forgetpassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           //Auth
 
         </Routes>
