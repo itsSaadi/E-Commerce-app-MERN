@@ -22,7 +22,6 @@ export default function Signup() {
       e.preventDefault();
       try {
         const postUser = await createUsers({ username, email, password });
-        console.log('succesfullly posted', postUser)
         dispatch(addUser(postUser.data))
         setLoader(false)
         navigate('/login')

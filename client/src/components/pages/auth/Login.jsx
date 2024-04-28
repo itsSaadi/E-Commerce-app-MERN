@@ -16,7 +16,6 @@ export default function Login() {
     if (email.length > 0 && password.length > 0) {
       setLoader(true)
       const response = await getUsers()
-      console.log(response)
       const users = await response.data;
       const user = users.find(x => x.email === email && x.password === password)
       if (user) {
