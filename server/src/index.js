@@ -11,7 +11,7 @@ const port = process.env.PORT || 4000
 //Routes
 app.use('/api/v1', userRotues)
 app.use('/api/v1', productRoutes)
-app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1', authRoutes)
 //Routes
 
 

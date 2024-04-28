@@ -1,16 +1,26 @@
 import React, { useState } from 'react'
 import Loader from '../../utils/Loader'
 import { Link } from 'react-router-dom'
+import { forgetPassword } from '../../../api/auth/index.js'
 
 function Forgetpassword() {
   const [email, setEmail] = useState('')
   const [loader, setLoader] = useState(false)
   const [messageModal, setMessageModal] = useState(false)
+  const [error, setError] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoader(true)
+    const user = await forgetPassword({ email })
+    if (!user) {
+      setError(true)
+      setLoader(false)
+    }
+    console.log(user)
     setMessageModal(true)
   }
+
   return (
 
     <>
@@ -21,6 +31,7 @@ function Forgetpassword() {
               <div className="wrapper">
                 <form action="" onSubmit={handleSubmit} id="form">
                   <h1 className="heading">Reset Your Password</h1>
+                  {error && error ? <span className="spans">User not exists</span> : ''}
                   <div className="input-box">
                     <input
                       onChange={(e) => setEmail(e.target.value)}
