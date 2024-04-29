@@ -16,12 +16,12 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const postUser = async (e) => {
+  const postUser = (e) => {
     if (username && email && password) {
       setLoader(true)
       e.preventDefault();
       try {
-        const postUser = await createUsers({ username, email, password });
+        const postUser = createUsers({ username, email, password });
         dispatch(addUser(postUser.data))
         setLoader(false)
         navigate('/login')

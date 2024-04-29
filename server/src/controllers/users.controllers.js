@@ -1,14 +1,21 @@
 import { UsersModel } from "../models/users.models.js"
+import jwt from 'jsonwebtoken'
 
 
 
 export const getUsers = async (req, res) => {
-    try {
-        const response = await UsersModel.find({})
-        res.json(response)
-    } catch (error) {
-        console.log(`Errorrr : ${error}`);
+    if (req.body.email && req.body.password) {
+        try {
+            const user = UsersModel.findOne(req.body).select('-password')
+            if (user) {
+                res.send({ result: 'user found' })
+            }
+            res.send({result:'user not found'})
+        } catch (error) {
+            console.log(`Errorrr : ${error}`);
+        }
     }
+
 }
 
 export const createUsers = async (req, res) => {
@@ -24,7 +31,9 @@ export const createUsers = async (req, res) => {
             return res.status(400).json({ message: 'Username already exists' });
         }
         const newUser = await UsersModel.create({ username, email, password })
-        res.send(newUser)
+        jwt.sign({ newUser }, process.env.JWT_PRIVATEKEY, { expiresIn: '2h' }, (err, token) => {
+            res.send({ newUser, auth: token })
+        })
     } catch (error) {
         console.log(`Errorrr : ${error}`);
 
