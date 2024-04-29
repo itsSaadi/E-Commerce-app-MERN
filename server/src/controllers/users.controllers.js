@@ -5,15 +5,14 @@ import jwt from 'jsonwebtoken'
 
 export const getUsers = async (req, res) => {
     if (req.body.email && req.body.password) {
-        try {
-            const user = UsersModel.findOne(req.body).select('-password')
-            if (user) {
-                res.send({ result: 'user found' })
-            }
-            res.send({result:'user not found'})
-        } catch (error) {
-            console.log(`Errorrr : ${error}`);
+        const user = await UsersModel.findOne(req.body)
+        if (user) {
+            res.send(user)
+        } else {
+            res.status(404).send({ result: 'user not found' })
         }
+    } else {
+        res.status(404).send({ result: 'user not found' })
     }
 
 }

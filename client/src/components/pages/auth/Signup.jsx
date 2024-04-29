@@ -1,7 +1,6 @@
 import React, { useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import addUser from '../../../store/usersSlice.jsx'
 import { createUsers } from "../../../api/users/index.js";
 import Loader from "../../utils/Loader.jsx";
 
@@ -16,13 +15,12 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const postUser = (e) => {
+  const postUser = async (e) => {
     if (username && email && password) {
       setLoader(true)
       e.preventDefault();
       try {
-        const postUser = createUsers({ username, email, password });
-        dispatch(addUser(postUser.data))
+        const postUser = await createUsers({ username, email, password });
         setLoader(false)
         navigate('/login')
       } catch (error) {

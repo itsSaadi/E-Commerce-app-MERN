@@ -14,27 +14,24 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (email.length > 0 && password.length > 0) {
-      setLoader(true)
-      const response = await getUsers()
-      const users = await response.data;
-      const user = users.find(x => x.email === email && x.password === password)
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user))
-        alert('user found')
+      try {
+        setLoader(true)
+        const response = await getUsers({ email, password })
+        localStorage.setItem('user', JSON.stringify(response.username))
         setLoader(false)
         window.location.href = '/'
-      } else {
-        setErr(true)
+      } catch (error) {
         setLoader(false)
+        setErr(true)
       }
     } else {
-      alert('Please fill form')
+      alert('Please provide both email and password')
     }
   }
 
   return (
     <>
-      <div className="d-flex vh-100  justify-content-center align-items-center contain">
+      <div className="d-flex justify-content-center align-items-center contain">
         <div className="container">
           <div className="wrapper">
             <form action="" onSubmit={handleLogin} id="form">
@@ -64,13 +61,13 @@ export default function Login() {
               <button disabled={!email && !email.length && !password && !password.length ? true : false} type="submit" className="createbtn">
                 {loader ? <div className="load"><Loader /></div> : 'Login'}
               </button>
-              <div style={{display:'flex',justifyContent:'space-between'}}>
-              <div style={{ marginTop: '10px' }}>
-                <Link style={{ color: 'aqua' }} to="/register" >Don't have accout?Register</Link>
-              </div>
-              <div style={{ marginTop: '10px' }}>
-                <Link style={{ color: 'aqua' }} to="/forget-password" >Forgot Passoword?</Link>
-              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div style={{ marginTop: '10px' }}>
+                  <Link style={{ color: 'aqua' }} to="/register" >Don't have accout?Register</Link>
+                </div>
+                <div style={{ marginTop: '10px' }}>
+                  <Link style={{ color: 'aqua' }} to="/forget-password" >Forgot Passoword?</Link>
+                </div>
               </div>
             </form>
           </div>
