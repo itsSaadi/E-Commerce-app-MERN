@@ -7,7 +7,12 @@ export const getUsers = async (req, res) => {
     if (req.body.email && req.body.password) {
         const user = await UsersModel.findOne(req.body)
         if (user) {
-            res.send(user)
+            jwt.sign({ user }, process.env.JWT_PRIVATEKEY, { expiresIn: '2h' }, (err, token) => {
+                if (err) {
+                    res.send({ result: 'No token' })
+                }
+                res.send({ user, auth: token })
+            })
         } else {
             res.status(404).send({ result: 'user not found' })
         }

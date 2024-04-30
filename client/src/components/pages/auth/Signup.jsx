@@ -21,6 +21,8 @@ export default function Signup() {
       e.preventDefault();
       try {
         const postUser = await createUsers({ username, email, password });
+        localStorage.setItem('user',JSON.stringify(postUser.newUser.username))
+        localStorage.setItem('token',JSON.stringify(postUser.auth))
         setLoader(false)
         navigate('/login')
       } catch (error) {

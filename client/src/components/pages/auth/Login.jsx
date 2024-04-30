@@ -17,7 +17,8 @@ export default function Login() {
       try {
         setLoader(true)
         const response = await getUsers({ email, password })
-        localStorage.setItem('user', JSON.stringify(response.username))
+        localStorage.setItem('user', JSON.stringify(response.user.username))
+        localStorage.setItem('token', JSON.stringify(response.auth))
         setLoader(false)
         window.location.href = '/'
       } catch (error) {

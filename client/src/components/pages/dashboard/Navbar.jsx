@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const [name,setName]=useState('')
+  const [name, setName] = useState('')
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function Navbar() {
   }, []);
 
   const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem('user');
     window.location.href = "/login";
   };
   return (
@@ -56,32 +56,32 @@ export default function Navbar() {
               </li>
             </ul>
             <form class="d-flex" role="search">
-              
-            <li
-            style={{ marginRight: "60px", listStyle: "none" }}
-            className="nav-item dropdown"
-          >
-            <a
-              className="nav-link dropdown-toggle mx-3"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {name}
-            </a>
-            <ul className="dropdown-menu">
-              <li>
-                <a onClick={(e) => logout()} class="dropdown-item" href="#">
-                  Logout
+
+              <li
+                style={{ marginRight: "60px", listStyle: "none" }}
+                className="nav-item dropdown"
+              >
+                <a
+                  className="nav-link dropdown-toggle mx-3"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {name}
                 </a>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a onClick={(e) => logout()} class="dropdown-item" href="#">
+                      Logout
+                    </a>
+                  </li>
+                </ul>
               </li>
-            </ul>
-          </li>
             </form>
 
           </div>
-         
+
         </div>
       </nav>
     </>
